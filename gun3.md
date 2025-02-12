@@ -949,4 +949,15 @@ gradle'i ureten ekip major surumler arasinda api kiriyor,
 3'te kullanilan pom.xml'in formati 15 yildir hic degismeden
 kullaniliyor.
 gradle aslinda ant'la maven'in karisimi bir sey, groovy'le
-program yaziyorsun.
+program yaziyorsun.  mavend var arkada process olarak canli
+duruyor, durttukce yeniden ayaga kaldirmadan derliyor.
+maven'da "derleme sadece su testi calistir" var maven paralel
+derleme becerisi var, multi-modul bir proje, 30kusur modul
+paralel 5thread'le hizlica maven install calistirinca her seyi
+alip hazirliyor, lokal depoya koyuyor, halbuki benim tek
+amacim test calistirmak: `verify` yerelde gelistirici
+makinasinda ilk derlemede cache'ler, tum derleme sistmeleri
+siz clean demediginiz surece simdikiyle diff'ine bakar, fark
+yoksa onceki cache'ten doner
+
+**vscode changelog'unu oku**
