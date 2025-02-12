@@ -3,6 +3,7 @@
 - [Mikroservisler ve Devops 2](#mikroservisler-ve-devops-2)
   - [Sistem Mimarisinin Yazilim Uzerine Etkisi](#sistem-mimarisinin-yazilim-uzerine-etkisi)
   - [Mikroservis Tasarim Desenleri](#mikroservis-tasarim-desenleri)
+    - [Ileri takip edilecek konular](#ileri-takip-edilecek-konular)
 
 ## Sistem Mimarisinin Yazilim Uzerine Etkisi
 
@@ -807,3 +808,11 @@ gelen nework req'lerini
 uygulamada circuit braeker yok, sidcar once o aliyor proxy
 olarak, sonra asil servie gonderiyor, yapamiyorsa circuit
 breaker kesiyor, ozellikle network araya girmeleri.
+
+k8s'in yeni surmlerinde traefik'i implement eder, artik
+tanimlayabiliyoruz
+eskiden sidecar olarak inject ediyorduk.
+
+### Ileri takip edilecek konular
+
+- traefik'e bak

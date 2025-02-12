@@ -573,3 +573,5 @@ change data system
 [redhat api cozumu](https://www.apicur.io/)
 [redhat api management](https://www.redhat.com/en/technologies/jboss-middleware/api-management)
 [k8s patterns]
+
+SDLC software development life cycle
