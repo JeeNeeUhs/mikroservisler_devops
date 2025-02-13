@@ -960,4 +960,25 @@ makinasinda ilk derlemede cache'ler, tum derleme sistmeleri
 siz clean demediginiz surece simdikiyle diff'ine bakar, fark
 yoksa onceki cache'ten doner
 
-**vscode changelog'unu oku**
+SBOM her seyin log dosyalarinin tutulmasi: bu urunun bagimli
+oldugu her sey. onlarin isimleri, dolayli olarak bagimli
+olduklari, surumleri, her sey. gelistiriciler sadece dogrudan
+kullandigi bagimliliklari biliyor, bu onlarin bagimliliklarini
+da cikartiyor. butun bi rpaket yonetim sistemiyle
+bagimliliklarinizi tanimlarsaniz guvenlik ekipleri paketler ve
+surum no.'lariyla db'lerde tutuluyor. boylece herhangi bir
+yerde bir guvenlik acigi varsa onden bilgi sahibi olup
+aciktan etkilenen yazilimlar kapanmadan bunlar duyurulmuyor.
+
+pratikteki sorunlar
+
+- acik iceren paketin bagimliliklarini uygulamamiz icin
+  cozemedigimizden biliyoruz onu yamamamiyoruz.
+- uygulamanin 10 yil onceki surumunu kullaniyorlar, rhel
+  destegi keseli cok olmus
+
+backport ettik: gidip rhel'in kodunu yamadik.
+uygulama hem wildfly hem java ee destekledi. java ee
+destegini kestiler: jakarta'ya gecirmemisler, testlerde
+aciklar cikti. once jakarta ee'ye goc ettirmeniz gerekiyor.
+surecler uzadikca sorunlar da buyuyor
