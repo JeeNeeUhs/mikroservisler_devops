@@ -816,3 +816,6 @@ eskiden sidecar olarak inject ediyorduk.
 ### Ileri takip edilecek konular
 
 - traefik'e bak
+- sonar'in branch bazli scan'i aslinda var, enterprise'a gerek
+  yok, community'den birisi bir branch yazmis.
+- gitlab ozgur yazilim.
