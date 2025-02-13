@@ -973,7 +973,8 @@ aciktan etkilenen yazilimlar kapanmadan bunlar duyurulmuyor.
 pratikteki sorunlar
 
 - acik iceren paketin bagimliliklarini uygulamamiz icin
-  cozemedigimizden biliyoruz onu yamamamiyoruz.
+  yaratacagi sorunlari cozemeyecegimizi biliyoruz ve onu
+  yamamamiyoruz.
 - uygulamanin 10 yil onceki surumunu kullaniyorlar, rhel
   destegi keseli cok olmus
 
