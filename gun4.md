@@ -5,6 +5,8 @@
   - [CD](#cd)
   - [Soru](#soru)
   - [git](#git)
+  - [K8s'te nasil yapilir](#k8ste-nasil-yapilir)
+  - [continous monitoring](#continous-monitoring)
 
 ## Guvenlik
 
@@ -291,3 +293,151 @@ RFC: request for comment (10000'e yaklasmis durumda, standart
 oldular, onlar da gelisiyorlar, buradan protokollerin nasil
 olacagini anlayabilirsin, kutuphanelerde bu yazar: RFC sunu
 bunu destekliyorum diye yaziyor.)
+
+## K8s'te nasil yapilir
+
+KNative dogrudan dogruya k8s'e api'lerini kullanarak
+key:value ve dokuman db
+controller'da da API'lerle bu isleri yapar
+
+bunun arkasinda bir nesnemiz var, id'si olur, name'i olur, 1-2
+tane daha var zarfta
+
+siz kendi rest api'lerinizi de tasarlarken bunun gibi
+tasarlayacaksiniz. kubectl clienti rest api'leri kullanarak
+islem yapan go uygulamasi
+
+kNative uygulamalarinin bir kismi bu api cagrilarini yaparak
+islem yaparlar, artik butun programlama dillerinde k8s
+api'lerini cagiran kutuphaneleri var. nesneler burada bunlari
+kullanarak yapabilirsin.
+
+cok duzgun tanimlanmi mvc'ler var (kavramlar ayni)
+or: ben bir deployment yapacagim zaman aslinda deployment
+api'sine bir json post ediyorum. k8s bunu alip db'ye yaziyor,
+controller aa yeni bir istek geldi, controller da modeldeki
+bilgiyi alip ne yapacaksa onu yapiyor.
+configmap'in controlller'i bunu nereye bind edecegin icin ek
+bilgi tasiyor.
+
+k8s ile login oldugunda bir token aliyorsun, authorizeation yapiyor kubectl bunu belli bir sure
+env'da tutuyor tekrar tekrar arka planda onu donduruyor.
+
+biz de implement edebiliyoruz. CRD: api'lerinde tanimli
+modellerin benzerini biz de tanimlayabiliyoruz. tipki k8s'in
+yaptigi gibi etcd'ye baasiyor ve onu okuyor.
+
+apache camel icin mesela bi crd tanimlamislar, sen kubectl'le
+crd'ye yukle benim k8s icinde kosan controller operator
+pattern'i de deniyor. k8s'in controller'lari api'leri var ya, sizin
+yazdiginizdan farkli calismiyor. o controller da birer pod
+olarak calisiyor. modellemesi de acik bir modelleme benzerini
+taklit ederek yapabiliyoruz. once resource tipi (json schema)
+tanimliyorum, su validasyon kurallarini tanimlayacak, k8s bana
+basit bir rest api aciyor, her gonderdigim veriyi validate
+ediyor, kabul ediyor redediyor vs.
+verdigim isimle belgeler geldi
+operator pattern surekli gidip sorgu atip yeni bir sey var
+midiye bakiyor, varsa onu yukluyor, yoksa bir sey yapmiyor.
+
+helm yerine operatorle yapmayi terci hetmisler, qctiemq icine
+activemq'nun operatoru veriyi dinliyor, gidip kuyruk tanimlama
+api'sini cagiriyor. benzeri devops acisindan tekton dogrudan
+k8s'e gomulmus durumda, pipeline'larinizi yaml dosyasi olarak
+yaziyorsunuz. api'si "aa yeni bir akis geldi deyip job
+tob'larini calistiyor. scheduler, event dinleyen bir baska
+servis calisiyor. bunlarin hepsi k8s'in api'lerini kullaniyor.
+
+benzer seyi kendi uygulamalarinda birebir taklit edebilirsin.
+CRD'da DSL olusturdum ona uyacak servis implementasyonu yapip
+calistirdim, piyasadaki apigw'ler hep ayni isi yapiyor. ornek
+traefik. bir rule yaml'i tanimlamis, onu koyuyorusn CRD olarak
+traefikin operatoru bunlari dinliyor, traefik controllerina bu
+rule'lari basiyor. evet knative
+
+operator  patterniyle bir seyler kurmaya helm'i tercih ediyor
+hepi topu bir yaml dosyasindan bahsediyoruz, bir paketten
+degil. helm'se bir paket sistemi dolayisiyla npm, nugget,
+bagimliligini ve surum takibini yonetebildigimiz gibi
+
+cozum nedir? gitops kullanmak, zaten buradan dogdu, git'teki
+seylerin otomatik basilmasini da soyler.
+
+CRD'ye ihtiyaciniz oldu mu? jenkins'le mi yapiyorsunuz
+helm burada operator'e bir alternatif mi
+traefik kullaniyor musunuz?
+
+yazilim gelistiriciler mimari tercihe bagli olacak
+bunlarin surumleri nasil yonetilecek,
+ayri test cluster'lari kurmaya ihtiyaciniz var
+dagitimlar std. api'lerin uzerine ek bir seyler getirmis
+oluyorlar. artik bu durumda ona bagimli haldesin.
+
+git'te bi sey merge olursa git jenkins job'unu tetikle;
+git'ten pull aliyor ,directory structrue'unu kullanarak k8s'e
+kubectl'le ne yapacaksa yapiyor. git'in uzerinde bir directory
+structure bir tag - branch kurarak yapilabilir.
+directory structure icin prefix-suffix kullanabilirim
+1 seyin yaml'ini tutmuyorum. onlarca tutuyorum. namespace'ler,
+pod isimlendirme kurallari.
+
+ayni seyi pipeline tanimlarim git'te duruyor. orada bir naming
+convenction: her jobun ismi bir folder ismi, icinde bir jobdsl
+var. hede-job.groovy bir de pipeline icin var, jenkins'in
+icinde 1 tanejob var: seed job, 5dk.'da bir veya
+repo'daki jobdsl'leri pipeline dsl'leri topluyor,
+
+code review islesin, release branch'ine merge olsun
+
+operator build ediyor
+bu isin detaylarini kendin karar vermen lazim, 1 repo'da mi
+tutacaksin repo'lara mi boleceksin, isimlendirme kurallarinin
+konmasi gerekiyor. (belgelenmeli)
+
+monitoring sistemlerinde vs cok goreceginiz icin isimlendirme
+cok onemli. proje adi olabilir, urunun bir adi olmasi gerekir
+zaten, onun olusturacagi bir isim uzayi.
+
+`gitops`
+
+## continous monitoring
+
+her ekledigin urunun izleme sisteminin de baglanmasini
+saglamak gerekiyor.
+
+uygulamaya openmetric opentrace ozelliklerinin konulmasi lazim.
+
+zipkin+jagger+prometheus = bunlar openmetrics datasi (zipkin
+gibi bir aracla basar), jagger opentracing'de ms'lerde her 10
+req'te 1 tanesini alir, 1 fonksiyonalitenin trace edilmesini
+saglar, bunu zipkin da yapabiliyor. saas olarak monitoring
+verilerini toplayip raporlayan
+
+java'nin jvm'in metodlarini, ruby'nin metod mesajlarini
+kancalayip buradan metric toplayabilir.
+bunlar gneric oldugu icin anlamlandirilamayan datalar da
+geliyor.
+
+bunlarin da deployment'a eklenmesi laizm, maliyetler buyudugu
+icin bazen ornekleme bakilabilir. atiyorum 20 pod varsa 2
+pod'un metriclerine bakilir.
+
+kullandiigniz kutuphaneler bonus olabilir butun spring
+kutuphanelerinin icinde http.client cagrisi yaptiginizda onun
+metriclerini toplar gonderir.
+
+http header'larini da otomatik ekliyor.
+housekeeping: ne kadar tutabiliriz, sonrasinda nasil
+silebiliriz?
+
+verilerin query olarak url'den gonderilmesi
+post - put - patch kullanman gerekir
+get bir req body barindiramaz
+
+teknolojisi olarak sahip olmakla kullanmak arasinda fark var.
+
+- **yapay zekayi sor**
+yapay sinir aglari, heurostic algoritmalar
+large language model; dogal dil isleme icin kullaniliyor.
+ilerleyen donemlerde diger alternatifler gelecek. ileride nis
+alanlara ozel daha optimize edilmis modeller gelecek.
